@@ -83,6 +83,54 @@ Use one of these to restart after BSU quits:
 - AMP/Pterodactyl/other server panel restart behavior
 - Windows service wrapper
 - batch/shell loop
+- one of the wrapper scripts included with the mod (below)
+
+## Included restart wrappers
+
+BSU ships with a simple restart loop for both Windows and Linux. Each one launches the dedicated server, waits for the process to exit, and starts it again. That covers Workshop-triggered restarts, scheduled restarts, and admin-triggered restarts alike.
+
+Both files live in the mod folder:
+
+```
+BetterServerUpdater\Contents\mods\BetterServerUpdater
+```
+
+| File as shipped | Rename to | Platform |
+| --- | --- | --- |
+| `StartServer64_BSU_Windows.bat.txt` | `StartServer64_BSU_Windows.bat` | Windows |
+| `start-server_BSU_Linux.sh.txt` | `start-server_BSU_Linux.sh` | Linux |
+
+The Steam Workshop uploader rejects raw `.bat` and `.sh` files, so both scripts ship with a trailing `.txt`. **They will not run until that extension is removed.**
+
+### Windows
+
+1. Rename `StartServer64_BSU_Windows.bat.txt` to `StartServer64_BSU_Windows.bat`.
+2. Copy it into the dedicated server folder, normally `Steam\steamapps\common\Project Zomboid Dedicated Server`.
+3. Launch the server with that `.bat` instead of the stock start script.
+
+If the `.txt` is not visible, enable **File name extensions** under the View tab in File Explorer. Extensions are hidden by default, which is the usual cause of a file still named `.bat.txt`.
+
+### Linux
+
+1. Rename `start-server_BSU_Linux.sh.txt` to `start-server_BSU_Linux.sh`.
+2. Copy it into the dedicated server folder.
+3. Mark it executable and run it instead of the stock start script.
+
+```
+chmod +x start-server_BSU_Linux.sh
+./start-server_BSU_Linux.sh
+```
+
+### Downloading without renaming
+
+Both scripts are also in the repo with the correct extension already applied:
+
+- [StartServer64_BSU_Windows.bat](https://github.com/Nippytime/Better-Server-Updater/raw/main/StartServer64_BSU_Windows.bat)
+- [start-server_BSU_Linux.sh](https://github.com/Nippytime/Better-Server-Updater/raw/main/start-server_BSU_Linux.sh)
+
+GitHub serves `.sh` as plain text, so that link may open in the browser rather than downloading. Use right click > Save link as, `curl -O`/`wget` with the raw URL, or take the whole repo as a [zip](https://github.com/Nippytime/Better-Server-Updater/archive/refs/heads/main.zip).
+
+Either script is only a supervisor. Editing JVM arguments, memory limits, or server name still happens the same way it does in the stock start script.
 
 ## Safety notes
 
